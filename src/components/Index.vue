@@ -1,7 +1,7 @@
 <template>
   <button class="vue-btn" :class="{'use-load': useLoading}"
           :style="style" @click.stop="click" :disabled="disabled" ref="btn">
-    <slot v-if="!disabled"/>
+    <slot v-if="!$slots.lock||!disabled"/>
     <slot v-else name="lock"/>
   </button>
 </template>

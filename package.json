@@ -1,6 +1,6 @@
 {
   "name": "@livelybone/vue-button",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A vue button component with anti-shake feature implemented by Promise, custom lock styles or text",
   "main": "./lib/umd/index.js",
   "module": "./lib/es/index.js",
