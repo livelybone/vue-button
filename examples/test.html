@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VueBtn</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://unpkg.com/@livelybone/vue-loading"></script>
+  <script src="https://unpkg.com/promise-polyfill"></script>
+  <script src="../lib/umd/index.js"></script>
+  <style>
+  .vue-btn {
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    background: #5a94b4;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  .vue-btn:hover {
+    background: #64a2c3;
+  }
+
+  .vue-btn:active {
+    background: #3f6b83;
+  }
+
+  .vue-btn[disabled] {
+    background: #a8b5c2;
+  }
+
+  .loading {
+    margin: 10px 0 0;
+  }
+  </style>
+</head>
+<body>
+<div id="module"></div>
+
+<script>
+new Vue({
+  el: '#module',
+  template: '<vue-btn :clickFn="submit" :errorFn="error">\n' +
+  '    提交\n' +
+  '    <loading class="loading" slot="lock" size="20px" color="#fff"/>\n' +
+  '  </vue-btn>',
+  data: function () {
+    return {}
+  },
+  methods: {
+    submit: function () {
+      return new Promise(function (res, rej) {
+        setTimeout(function () {
+          // res(1)
+          rej(new Error('提交失败！'))
+        }, 2000)
+      }).then(() => {
+        alert('提交成功')
+      })
+    },
+    error: function (e) {
+      alert(e)
+    },
+  },
+  components: { 'vue-btn': VueBtn, 'loading': VueLoading }
+})
+</script>
+</body>
+</html>
