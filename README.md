@@ -13,7 +13,7 @@ You maybe need a promise polyfill if you want to use it in `IE` browser
 https://github.com/livelybone/vue-button.git
 
 ## Demo
-http://livelybone.github.io/@livelybone/vue-button/
+http://livelybone.github.io/vue/vue-button/
 
 ## Installation
 ```bash
