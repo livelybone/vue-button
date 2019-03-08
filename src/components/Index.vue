@@ -1,8 +1,12 @@
 <template>
-  <button class="vue-btn" :class="{'use-load': useLoading}"
-          :style="style" @click.stop="click" :disabled="disabled" ref="btn">
-    <slot v-if="!$slots.lock||!disabled"/>
-    <slot v-else name="lock"/>
+  <button class="vue-btn"
+          ref="btn"
+          :style="style"
+          :disabled="disabled"
+          @click.stop="click">
+    <slot v-if="$slots.lock&&disabled"
+          name="lock"/>
+    <slot v-else/>
   </button>
 </template>
 
@@ -28,8 +32,9 @@ export default {
   },
   computed: {
     style() {
-      const { width, height } = this.size
-      return { minWidth: `${width}px`, minHeight: `${height}px` }
+      if (!this.disabled) return {}
+      const height = `${this.size.height}px`
+      return { width: `${this.size.width}px`, height, lineHeight: height }
     },
   },
   watch: {
@@ -48,13 +53,15 @@ export default {
         this.disabled = false
         throw new Error('The result of clickFn should be a instance of Promise')
       }
-      result.then(() => {
-        this.disabled = !this.canUseAgain
-      }).catch((e) => {
-        if (this.errorFn) this.errorFn(e)
-        else console.error(e)
-        this.disabled = false
-      })
+      result
+        .then(() => {
+          this.disabled = !this.canUseAgain
+        })
+        .catch((e) => {
+          if (this.errorFn) this.errorFn(e)
+          else console.error(e)
+          this.disabled = false
+        })
     },
     getSize() {
       this.$nextTick(() => {
