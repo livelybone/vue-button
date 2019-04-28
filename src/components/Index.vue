@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'BtnOnce',
+  name: 'VueButton',
   props: {
     clickFn: {
       required: true,
